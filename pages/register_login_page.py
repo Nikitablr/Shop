@@ -1,6 +1,7 @@
 from pages.base_page import BasePage
 from .locator import LoginLocator
 from .locator import SignupLocator
+from models.register_faker import RegisterData
 
 
 class LoginPage(BasePage):
@@ -11,11 +12,11 @@ class LoginPage(BasePage):
     def open_signup_page(self):
         self.browser.find_element(*SignupLocator.SIGN_UP_BUTTON).click()
 
-    def enter_user_name(self, name):
+    def enter_first_name(self, name):
         new_user = self.browser.find_element(*SignupLocator.NEW_USER_NAME)
         new_user.send_keys(name)
 
-    def enter_first_name(self, first_name):
+    def enter_last_name(self, first_name):
         name = self.browser.find_element(*SignupLocator.NEW_USER_FIRST_NAME)
         name.send_keys(first_name)
 
@@ -49,48 +50,51 @@ class LoginPage(BasePage):
 
     '''Заполняем форму регистрации валидными данными'''
     def fill_fields_valid(self):
-        self.enter_user_name('nik')
-        self.enter_first_name('nik')
-        self.enter_password('Nik123456')
-        self.enter_confirm_password('Nik123456')
-        self.enter_email_address('test@tester.com')
+        data = RegisterData.random()
+        self.enter_first_name(data.first_name)
+        self.enter_last_name(data.last_name)
+        self.enter_password(data.password)
+        self.enter_confirm_password(data.password_2)
+        self.enter_email_address(data.email)
         self.scroll_to_element(*SignupLocator.REGISTER_BUTTON)
         self.click_register_button()
         assert self.is_open(*SignupLocator.OPEN_AFTER_SIGNUP)
 
     '''Вводим разные пароли'''
     def enter_did_not_match_password(self):
-        self.enter_user_name('asdf')
-        self.enter_first_name('fdsa')
-        self.enter_password('Qwe123456')
-        self.enter_confirm_password('Qwe123457')
+        data = RegisterData.random()
+        self.enter_first_name(data.first_name)
+        self.enter_last_name(data.last_name)
+        self.enter_password(data.password)
+        data = RegisterData.random_did_not_match_pass()
+        self.enter_confirm_password(data.password_2)
         self.click_register_button()
         assert self.is_presented(*SignupLocator.MESSAGE_DID_NOT_MATCH_PASSWORD)
 
     '''Авторизация ранее зарегистрированного пользователя'''
     def enter_registered_user_name(self):
-        self.enter_user_name('nik')
-        self.enter_password('Qwe123456')
-        self.enter_confirm_password('Qwe123456')
+        self.enter_first_name('Nik')
+        self.enter_password('Nik123456')
+        self.enter_confirm_password('Nik123456')
         self.click_register_button()
         assert self.is_presented(*SignupLocator.MESSAGE_USER_ALREADY_EXIST)
 
     '''Авторизация ранее зарегистрированного пользователя'''
     def login_user(self):
-        self.enter_user_name('Solo')
+        self.enter_first_name('Nik')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
         assert self.is_presented(*LoginLocator.DROPDOWN_IF_USER_LOGIN)
 
     '''Вводим не верное username при авторизации'''
     def login_user_with_invalid_username(self):
-        self.enter_user_name('n')
+        self.enter_first_name('n')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
         assert self.is_presented(*LoginLocator.ERROR_MESSAGE_IF_INVALID_NAME)
 
     def logout_user(self):
-        self.enter_user_name('nik')
+        self.enter_first_name('nik')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
         self.click_logout_button()

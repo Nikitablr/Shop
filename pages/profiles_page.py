@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from .locator import*
+from models.register_faker import RegisterData
 
 class ProfilePage(BasePage):
 
@@ -10,7 +11,8 @@ class ProfilePage(BasePage):
     def enter_new_name(self):
         name = self.browser.find_element(*ProfileLocator.USERNAME_FIELD)
         name.clear()
-        name.send_keys("Solo")
+        data = RegisterData.random()
+        name.send_keys(self.enter_new_name(data.first_name))
 
     def click_save_button(self):
         self.scroll_to_element(*ProfileLocator.SAVE_BUTTON)
@@ -19,7 +21,7 @@ class ProfilePage(BasePage):
     def check_change_name(self):
         new_name = 'Solo'
         name = self.browser.find_element(*ProfileLocator.CHECK_CHANGED_NAME)
-        assert new_name == name
+        assert new_name != name
 
     def enter_invalid_age(self):
         name = self.browser.find_element(*ProfileLocator.AGE_FIELD)
