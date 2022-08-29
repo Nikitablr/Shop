@@ -27,13 +27,13 @@ class BookLocator:
     MORE_BUTTON = (By.XPATH, '/html/body/div/div[2]/div/div[1]/div/a')
     BOOK_BUTTON = (By.XPATH, '/html/body/div/div[2]/div[1]/div/div/div/button/a')
     COST_IN_CART = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div/div[1]/span[3]')
-    NAME_ON_BOOK_PAGE = (By.XPATH, '/html/body/div/div[2]/div/div[1]/div/h5')
+    NAME_ON_BOOK_PAGE = (By.CLASS_NAME, 'card-title')
     NAME_ON_CART_PAGE = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div/div[1]/span[2]')
     DROPDOWN_BUTTON = (By.XPATH, '//*[@id="navbarTogglerDemo01"]/ul/li[2]/a')
     BASKET_BUTTON = (By.XPATH, '//*[@id="navbarTogglerDemo01"]/ul/li[2]/div/a[2]')
-    CHECK_ADD = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div')
+    CHECK_ADD = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div/div[1]')
     EMPTY_CART = (By.XPATH, '/html/body/div[2]/div[2]/div/div[1]/div/div[1]/h6')
-    DELETE_BUTTON = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div/div[2]/button')
+    DELETE_BUTTON = (By.XPATH, '/html/body/div[2]/div[1]/div[1]/div/div[2]/button/a')
 
 class ProfileLocator:
     PROFILE_BUTTON = (By.XPATH, '//*[@id="navbarTogglerDemo01"]/ul/li[2]/div/a[1]')

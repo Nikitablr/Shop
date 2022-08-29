@@ -58,7 +58,7 @@ class LoginPage(BasePage):
         self.enter_email_address(data.email)
         self.scroll_to_element(*SignupLocator.REGISTER_BUTTON)
         self.click_register_button()
-        assert self.is_open(*SignupLocator.OPEN_AFTER_SIGNUP)
+        assert self.is_open(*SignupLocator.OPEN_AFTER_SIGNUP), "User don't signup"
 
     '''Вводим разные пароли'''
     def enter_did_not_match_password(self):
@@ -69,7 +69,7 @@ class LoginPage(BasePage):
         data = RegisterData.random_did_not_match_pass()
         self.enter_confirm_password(data.password_2)
         self.click_register_button()
-        assert self.is_presented(*SignupLocator.MESSAGE_DID_NOT_MATCH_PASSWORD)
+        assert self.is_presented(*SignupLocator.MESSAGE_DID_NOT_MATCH_PASSWORD), 'Bug'
 
     '''Авторизация ранее зарегистрированного пользователя'''
     def enter_registered_user_name(self):
@@ -77,28 +77,28 @@ class LoginPage(BasePage):
         self.enter_password('Nik123456')
         self.enter_confirm_password('Nik123456')
         self.click_register_button()
-        assert self.is_presented(*SignupLocator.MESSAGE_USER_ALREADY_EXIST)
+        assert self.is_presented(*SignupLocator.MESSAGE_USER_ALREADY_EXIST), 'No message'
 
     '''Авторизация ранее зарегистрированного пользователя'''
     def login_user(self):
         self.enter_first_name('Nik')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
-        assert self.is_presented(*LoginLocator.DROPDOWN_IF_USER_LOGIN)
+        assert self.is_presented(*LoginLocator.DROPDOWN_IF_USER_LOGIN), 'User no login'
 
     '''Вводим не верное username при авторизации'''
     def login_user_with_invalid_username(self):
         self.enter_first_name('n')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
-        assert self.is_presented(*LoginLocator.ERROR_MESSAGE_IF_INVALID_NAME)
+        assert self.is_presented(*LoginLocator.ERROR_MESSAGE_IF_INVALID_NAME), 'No error message'
 
     def logout_user(self):
         self.enter_first_name('nik')
         self.enter_login_password('Nik123456')
         self.click_signin_button()
         self.click_logout_button()
-        assert self.is_open(*LoginLocator.SIGNIN_BUTTON_APPEAR)
+        assert self.is_open(*LoginLocator.SIGNIN_BUTTON_APPEAR), 'Did not logout'
 
 
 

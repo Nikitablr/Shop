@@ -21,7 +21,7 @@ class ProfilePage(BasePage):
     def check_change_name(self):
         new_name = 'Solo'
         name = self.browser.find_element(*ProfileLocator.CHECK_CHANGED_NAME)
-        assert new_name != name
+        assert new_name != name, 'Name has not changed'
 
     def enter_invalid_age(self):
         name = self.browser.find_element(*ProfileLocator.AGE_FIELD)
@@ -29,7 +29,7 @@ class ProfilePage(BasePage):
         name.send_keys("16")
 
     def error_age_message(self):
-        assert self.browser.find_element(*ProfileLocator.AGE_ERROR_MESSAGE)
+        assert self.browser.find_element(*ProfileLocator.AGE_ERROR_MESSAGE), 'No error message'
 
 
 
