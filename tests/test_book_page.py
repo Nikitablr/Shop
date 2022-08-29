@@ -2,10 +2,9 @@ from pages.base_page import BasePage
 from pages.register_login_page import LoginPage
 from pages.book_page import BookPage
 
-def test_book_hotel(browser):
-    page = BasePage(browser)
-    page.go_to_site()
+def test_booking_hotel(browser):
     page = LoginPage(browser)
+    page.go_to_site()
     page.open_login_page()
     page.login_user()
     page = BookPage(browser)
@@ -15,7 +14,7 @@ def test_book_hotel(browser):
     page.open_cart_page()
     page.check_add()
 
-def test_delete_book(browser):
+def test_delete_booking(browser):
     page = BasePage(browser)
     page.go_to_site()
     page = LoginPage(browser)
