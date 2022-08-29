@@ -1,12 +1,10 @@
 from pages.profiles_page import ProfilePage
-from pages.base_page import BasePage
 from pages.register_login_page import LoginPage
 
 
 def test_change_profile_name(browser):
-    page = BasePage(browser)
-    page.go_to_site()
     page = LoginPage(browser)
+    page.go_to_site()
     page.open_login_page()
     page.login_user()
     page = ProfilePage(browser)
@@ -16,9 +14,8 @@ def test_change_profile_name(browser):
     page.check_change_name()
 
 def test_change_invalid_age(browser):
-    page = BasePage(browser)
-    page.go_to_site()
     page = LoginPage(browser)
+    page.go_to_site()
     page.open_login_page()
     page.login_user()
     page = ProfilePage(browser)
