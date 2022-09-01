@@ -1,6 +1,7 @@
 from pages.register_login_page import LoginPage
 from pages.book_page import BookPage
 
+
 def test_booking_hotel(browser):
     page = LoginPage(browser)
     page.go_to_site()
@@ -12,14 +13,15 @@ def test_booking_hotel(browser):
     page.book_hotel()
     page.open_cart_page()
     page.check_add()
+    page.check_name()
+    page.check_cost()
 
 def test_delete_booking(browser):
-    page = LoginPage(browser)
-    page.go_to_site()
-    page.open_login_page()
-    page.login_user()
+    test_booking_hotel(browser)
     page = BookPage(browser)
     page.delete_book()
+
+
 
 
 
