@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from .locator import BookLocator
+import re
 
 
 
@@ -29,6 +30,17 @@ class BookPage(BasePage):
         self.browser.switch_to.window(self.browser.window_handles[0])
         name_hotel_in_cart = self.browser.find_element(*BookLocator.NAME_ON_CART_PAGE).text
         assert name_hotel in name_hotel_in_cart, "Names don't match"
+
+
+    def check_cost(self):
+        self.browser.switch_to.window(self.browser.window_handles[1])
+        cost = self.browser.find_element(*BookLocator.COST_ON_BOOK_PAGE).text
+        digit_in_list = [float(s) for s in re.findall(r'-?\d+\.?\d*', cost)]
+        digit_in_string = "".join([str(_) for _ in digit_in_list])
+        self.browser.switch_to.window(self.browser.window_handles[0])
+        cost_hotel_in_cart = self.browser.find_element(*BookLocator.COST_ON_CART_PAGE).text
+        assert digit_in_string in cost_hotel_in_cart, "Cost don't match"
+
 
     def delete_book(self):
         button = self.browser.find_element(*BookLocator.DELETE_BUTTON)
